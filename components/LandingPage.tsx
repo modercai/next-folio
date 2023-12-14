@@ -15,29 +15,31 @@ function LandingPage() {
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
-  const [error, setError] = useState([])
+  const [error, setError] = useState([]);
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) =>{
-      e.preventDefault();
-      console.log(`${name}`)
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(`${name}`);
 
-      const res = await fetch('api/contact',{
-        method:"POST",
-        headers: {
-          "Content-type":"application/json"
-        },
-        body:JSON.stringify({
-          name,email,subject,message
-        })
-      })
-      const {msg} = await res.json();
-      setError(msg);
-      console.log(error)
+    const res = await fetch("api/contact", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        subject,
+        message,
+      }),
+    });
+    const { msg } = await res.json();
+    setError(msg);
   };
 
   return (
     <>
-      <div className="border-b-2 border-b-gray-100 border-dotted bg-red-300">
+      <div className="border-b-2 border-b-gray-100 border-dotted bg-gray-100">
         <header className="pb-10">
           <h1 className="font-bold p-10 text-2xl">MyPortfolio</h1>
           <ul className="flex flex-row space-x-4 justify-center text-2xl text-white text">
@@ -55,10 +57,10 @@ function LandingPage() {
       </div>
 
       {/* first section starts */}
-      <div className="flex justify-between p-10 bg-red-300">
+      <div className="flex justify-between p-10 bg-gray-300">
         {/* some text to the left  */}
         <div className="p-52 space-y-3">
-          <h4 className="font-bold text-3xl text-white">I'm</h4>
+          <h4 className="font-bold text-3xl text-white">Im</h4>
           <h2 className="text-white text-6xl">Friday Malate</h2>
           <h3 className="text-white text-4xl">Nextjs Developer</h3>
           <div className="space-x-4">
@@ -92,11 +94,8 @@ function LandingPage() {
               <h1 className="font-extrabold text-3xl border-b border-black">
                 About Me
               </h1>
-              <p className="pt-5">
-                Hello! My name is Friday Malate Kamuli and I am passionate about
-                Programming. I am a junior software developer based in lusaka
-                Zambia.
-              </p>
+              <p>Hello! My name is Friday Malate Kamuli and I am passionate about Programming.</p>
+
               <p>
                 I have a strong background in the technologies listed below.
               </p>
@@ -233,20 +232,71 @@ function LandingPage() {
       {/* experince section end */}
 
       {/* resume section start */}
-      <section id="about" className="">
-        <div className="text-4xl font-extrabold pb-10 flex justify-center pt-20">
-          <h1>My Resume</h1>
+      <section id="about" className="pt-10">
+        <div className="bg-gray-100 py-12">
+          <div className="max-w-4xl mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-8">
+              Working Experience
+            </h2>
+            <div className="space-y-8">
+              <div className="flex items-center justify-between space-x-5">
+                <div className="w-1/2 relative">
+                  <div className="bg-white rounded-lg p-6 shadow-md">
+                    <div className="text-gray-600 mb-2">2023 - Date</div>
+                    <h2 className="text-xl font-semibold mb-2">
+                      Software Developer
+                    </h2>
+                    <h4 className="text-gray-500 mb-2">
+                      BookNowZambia, Lusaka, Zambia
+                    </h4>
+                    <p className="text-gray-700">
+                      Ive worked for booknowzambia as an intern software developer
+                    </p>
+                  </div>
+                  <div className="absolute h-full w-1 bg-gray-300 top-6 left-0"></div>
+                </div>
+                <div className="w-1/2 relative">
+                  <div className="bg-white rounded-lg p-6 shadow-md">
+                    <div className="text-gray-600 mb-2">2022 - 2023</div>
+                    <h2 className="text-xl font-semibold mb-2">
+                      IT Support
+                    </h2>
+                    <h4 className="text-gray-500 mb-2">
+                      Lusaka Water, Lusaka, Zambia
+                    </h4>
+                    <p className="text-gray-700">
+                      Ive worked for lusaka water and sewerage company as a IT assistant personale.
+                    </p>
+                  </div>
+                  <div className="absolute h-full w-1 bg-gray-300 top-6 right-0"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       {/* resume section end */}
 
       {/* contact section start */}
       <section id="contact" className="bg-gray-100">
+        <div className="text-4xl font-extrabold pb-10 flex justify-center pt-20">
+          <h1>Contact Me</h1>
+        </div>
         {/* add a map here for now an image will do */}
-        <div className="flex">
-          <Image src="" alt="contact-image" />
-          <div className="flex flex-col-reverse">
+        <div className="flex justify-evenly">
+          <Image
+            src="/images/mail.png"
+            height={200}
+            width={300}
+            alt="contact-image"
+          />
+          <div className="flex space-x-10 ">
             <form onSubmit={handleFormSubmit} className="flex flex-col">
+              <div className="big-slate-100 ">
+                {error &&
+                  error.map((e, index) => <div key={index} className="text-red-600">{e}</div>)
+                }
+              </div>
               <label htmlFor="">Your Name</label>
               <input
                 type="text"
@@ -255,23 +305,46 @@ function LandingPage() {
                 }}
                 value={name}
                 placeholder=" name"
+                className="p-2 rounded-md"
               />
               <label htmlFor="">email</label>
-              <input type="email" onChange={(e) => {
+              <input
+                type="email"
+                onChange={(e) => {
                   setEmail(e.target.value);
                 }}
-                value={email} placeholder=" email" />
+                value={email}
+                placeholder=" email"
+                className="p-2 rounded-md"
+              />
               <label htmlFor="">Subject</label>
-              <input type="text" onChange={(e) => {
+              <input
+                type="text"
+                onChange={(e) => {
                   setSubject(e.target.value);
                 }}
-                value={subject} placeholder=" subject" />
+                value={subject}
+                placeholder=" subject"
+                className="p-2 rounded-md"
+              />
               <label htmlFor="">Message</label>
-              <input type="text-area" onChange={(e) => {
+              <input
+                type="text-area"
+                onChange={(e) => {
                   setMessage(e.target.value);
                 }}
-                value={message} placeholder=" message" />
-              <button type="submit">Send Message</button>
+                value={message}
+                placeholder=" message"
+                className="p-2 rounded-md"
+              />
+              <div className="p-5 h-100 w-100">
+                <button
+                  type="submit"
+                  className="text-white bg-red-200 rounded-sm p-5 shadow-md"
+                >
+                  Send Message
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -279,9 +352,42 @@ function LandingPage() {
       {/* contact section end */}
 
       {/* footer start */}
-      <section>
-        <div>
-          <h3>The footer goes here</h3>
+      <section className="">
+        <div className="bg-red-200 p-10 flex justify-center">
+          <div className="container-fluid">
+            <div className="container">
+              <div className="footer-info">
+                <h2>Friday Kamuli Malate</h2>
+                <h3>Makeni, Lusaka, Zambia</h3>
+                <div className="footer-menu">
+                  <p>+260 0972194844</p>
+                  <p>malatefriday12@gmail.com</p>
+                </div>
+                <div className="">
+                  <a href="">
+                    <i className=""></i>
+                  </a>
+                  <a href="">
+                    <i className=""></i>
+                  </a>
+                  <a href="">
+                    <i className=""></i>
+                  </a>
+                  <a href="">
+                    <i className=""></i>
+                  </a>
+                  <a href="">
+                    <i className=""></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="container copyright">
+              <p>
+                &copy; <a href="#">Developer portfolio</a>, All Right Reserved |{" "}
+              </p>
+            </div>
+          </div>
         </div>
       </section>
       {/* footer ends */}
