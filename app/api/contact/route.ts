@@ -11,14 +11,15 @@ export async function POST(req:Request, res:Response){
         await connectDB();
         await Contact.create({name, email, subject, message})
         return NextResponse.json({
-            msg:["Form Submitted succesfully"], sucess :true
+            msg:["Message Submitted succesfully"], sucess :true
         })
     }catch(error){
         if(error instanceof mongoose.Error.ValidationError){
             let errorList = [];
             for(let e in error.errors){
-                errorList.push(e);
+                errorList.push(error.errors[e].message);
             }
+            console.log(errorList)
             return NextResponse.json({msg:errorList})
         }else{
             return NextResponse.json(error)
