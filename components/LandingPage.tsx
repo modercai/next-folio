@@ -1,14 +1,11 @@
 "use client";
 import Image from "next/image";
-import contactImage from "./assets/chat.png";
-import AnchorLink from "react-anchor-link-smooth-scroll";
 import { SiFlutter } from "react-icons/si";
 import { IoLogoAndroid } from "react-icons/io";
 import { TbBrandNextjs } from "react-icons/tb";
 import { SiDjango } from "react-icons/si";
-import { useState } from "react";
-import { HtmlContext } from "next/dist/server/future/route-modules/app-page/vendored/contexts/entrypoints";
-import { isContext } from "vm";
+import { useRef, useState } from "react";
+import Typewriter from "typewriter-effect";
 
 function LandingPage() {
   const [name, setName] = useState("");
@@ -39,15 +36,21 @@ function LandingPage() {
 
   return (
     <>
-      <div className="border-b-2 border-b-gray-100 border-dotted bg-gray-100">
+      <div className="border-b-gray-100  bg-gray-200 sticky top-0 z-50 shadow-md">
         <header className="pb-10">
           <h1 className="font-bold p-10 text-2xl">MyPortfolio</h1>
-          <ul className="flex flex-row space-x-4 justify-center text-2xl text-white text">
+          <ul className="flex flex-row space-x-4 justify-center text-2xl text-black text">
             <li>
               <a href="/">Home</a>
             </li>
             <li>
               <a href="#about">About</a>
+            </li>
+            <li>
+              <a href="#service">Services</a>
+            </li>
+            <li>
+              <a href="#resume">Resume</a>
             </li>
             <li>
               <a href="#contact">Contact</a>
@@ -57,29 +60,53 @@ function LandingPage() {
       </div>
 
       {/* first section starts */}
-      <div className="flex justify-between p-10 bg-gray-300">
+      <div className="flex justify-between p-10 bg-gray-200">
         {/* some text to the left  */}
-        <div className="p-52 space-y-3">
-          <h4 className="font-bold text-3xl text-white">Im</h4>
-          <h2 className="text-white text-6xl">Friday Malate</h2>
-          <h3 className="text-white text-4xl">Nextjs Developer</h3>
+        <div className="p-52 space-y-3 text-black">
+          <h4 className="font-bold text-3xl ">Im</h4>
+          <h2 className="e text-6xl">Friday Malate</h2>
+          <div className="text-3xl">
+          <Typewriter
+            onInit={(typewriter) => {
+              typewriter
+                .typeString("Flutter Developer!")
+                .pauseFor(2500)
+                .deleteAll()
+                .typeString("Kotlin Developer!")
+                .pauseFor(2500)
+                .deleteAll()
+                .typeString("Django Developer!")
+                .pauseFor(2500)
+                .deleteAll()
+                .typeString("Nextjs Developer!")
+                .start();
+            }}
+            options={{
+              strings: [
+                "Flutter Developer!",
+                "Kotlin Developer!",
+                "Nextjs Developer!",
+                "Django Developer!",
+              ],
+              autoStart: true,
+              loop: true,
+            }}
+          />
+          </div>
+         
           <div className="space-x-4">
-            <button className="h-12 w-32 text-xl bg-white rounded-md text-red-500">
+            <button className="h-12 w-32 text-xl bg-white rounded-md text-black">
               Hire me
-            </button>
-
-            <button className="h-12 w-32 text-xl bg-white rounded-md text-red-500">
-              Contact me
             </button>
           </div>
         </div>
         {/* my image to the right */}
         <div className="px-52">
           <Image
-            src="/images/image.png"
+            src="/images/grad.png"
             alt="myImage"
-            width={500}
-            height={500}
+            width={400}
+            height={400}
           />
         </div>
       </div>
@@ -87,15 +114,22 @@ function LandingPage() {
 
       {/* about section start */}
       <section id="about" className="">
-        <div className="flex p-40 space-x-20">
-          <Image src="" alt="Second-pic" />
+        <div className="flex p-40 space-x-20 bg-gray-100">
+          <Image
+            src="/images/grad.png"
+            alt="myImage"
+            width={400}
+            height={400}
+          />
           <div className="space-y-10">
             <div className="pt-20 text-xl">
               <h1 className="font-extrabold text-3xl border-b border-black">
                 About Me
               </h1>
-              <p>Hello! My name is Friday Malate Kamuli and I am passionate about Programming.</p>
-
+              <p>
+                Hello! My name is Friday Malate Kamuli and I am passionate about
+                Programming.
+              </p>
               <p>
                 I have a strong background in the technologies listed below.
               </p>
@@ -165,11 +199,11 @@ function LandingPage() {
       {/* about section end */}
 
       {/* experince section start */}
-      <section id="about" className="">
-        <div className="text-4xl font-extrabold pb-10 flex justify-center">
-          <h1>Services | Offered</h1>
+      <section id="service" className="">
+        <div className="text-4xl font-extrabold pb-10 flex justify-center bg-gray-100">
+          <h1>Services Offered</h1>
         </div>
-        <div>
+        <div className="bg-gray-100">
           <div className="max-w-sm w-full lg:max-w-full lg:flex">
             <div
               className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
@@ -232,10 +266,10 @@ function LandingPage() {
       {/* experince section end */}
 
       {/* resume section start */}
-      <section id="about" className="pt-10">
+      <section id="resume" className=" bg-gray-100 pt-20 pb-20">
         <div className="bg-gray-100 py-12">
           <div className="max-w-4xl mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-8">
+            <h2 className="text-4xl font-extrabold text-center mb-8">
               Working Experience
             </h2>
             <div className="space-y-8">
@@ -250,7 +284,8 @@ function LandingPage() {
                       BookNowZambia, Lusaka, Zambia
                     </h4>
                     <p className="text-gray-700">
-                      Ive worked for booknowzambia as an intern software developer
+                      Ive worked for booknowzambia as an intern software
+                      developer
                     </p>
                   </div>
                   <div className="absolute h-full w-1 bg-gray-300 top-6 left-0"></div>
@@ -258,14 +293,13 @@ function LandingPage() {
                 <div className="w-1/2 relative">
                   <div className="bg-white rounded-lg p-6 shadow-md">
                     <div className="text-gray-600 mb-2">2022 - 2023</div>
-                    <h2 className="text-xl font-semibold mb-2">
-                      IT Support
-                    </h2>
+                    <h2 className="text-xl font-semibold mb-2">IT Support</h2>
                     <h4 className="text-gray-500 mb-2">
                       Lusaka Water, Lusaka, Zambia
                     </h4>
                     <p className="text-gray-700">
-                      Ive worked for lusaka water and sewerage company as a IT assistant personale.
+                      Ive worked for lusaka water and sewerage company as a IT
+                      assistant personale.
                     </p>
                   </div>
                   <div className="absolute h-full w-1 bg-gray-300 top-6 right-0"></div>
@@ -286,16 +320,20 @@ function LandingPage() {
         <div className="flex justify-evenly">
           <Image
             src="/images/mail.png"
-            height={200}
+            height={50}
             width={300}
             alt="contact-image"
+            className="pb-5"
           />
           <div className="flex space-x-10 ">
             <form onSubmit={handleFormSubmit} className="flex flex-col">
               <div className="big-slate-100 ">
                 {error &&
-                  error.map((e, index) => <div key={index} className="text-red-600">{e}</div>)
-                }
+                  error.map((e, index) => (
+                    <div key={index} className="text-red-600">
+                      {e}
+                    </div>
+                  ))}
               </div>
               <label htmlFor="">Your Name</label>
               <input
@@ -352,8 +390,8 @@ function LandingPage() {
       {/* contact section end */}
 
       {/* footer start */}
-      <section className="">
-        <div className="bg-red-200 p-10 flex justify-center">
+      <section className="bg-gray-200 pt-20">
+        <div className="p-10 flex justify-center">
           <div className="container-fluid">
             <div className="container">
               <div className="footer-info">
